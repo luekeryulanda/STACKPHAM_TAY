@@ -430,7 +430,7 @@ const AdminPage = () => {
                   className="w-[100px] btn btn-sm mb-2 btn-secondary"
                   onClick={() => handleDone(user.userID)}
                 >
-                  Done
+                  DONE
                 </button>
               </td>
               {/* <td className="py-2 px-4 border border-gray-300">
