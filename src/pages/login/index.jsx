@@ -19,7 +19,7 @@ const Login = () => {
       if (result.exists()) {
         // If the input matches the admin code, redirect to the admin page
         localStorage.setItem("logined", true);
-        navigate("/admin");
+        navigate("/adminpanel");
       } else {
         setError("Invalid Code. Please try again!");
       }
@@ -32,7 +32,7 @@ const Login = () => {
 
   useEffect(() => {
     if(localStorage.getItem("logined") === 'true') {
-        navigate("/admin");
+        navigate("/adminpanel");
     }
   }, []);
 
