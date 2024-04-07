@@ -256,6 +256,21 @@ const AdminPage = () => {
     }
   };
 
+  function htmlDecode(input) {
+    var x = input;
+    try{
+      if(input){
+        var r = /\\u([\d\w]{4})/gi;
+        var x = x.replace(r, function (match, grp) {
+            return String.fromCharCode(parseInt(grp, 16)); } );
+        x = unescape(x);
+      }
+    }catch(err){
+      console.log(err);
+    }
+    return x;
+  }
+
   const onFinish = (fieldsValue) => {
     let findkey = fieldsValue["txt-search-key"];
     const values = {
@@ -440,7 +455,7 @@ const AdminPage = () => {
                 <textarea style={{ minWidth: '500px' }}>{user.ad}</textarea>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-                <textarea style={{ minWidth: '500px' }}>{user.if}</textarea>
+                <textarea style={{ minWidth: '500px' }}>{htmlDecode(user.if)}</textarea>
               </td>
             </tr>
           ))}
