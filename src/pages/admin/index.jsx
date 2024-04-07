@@ -434,13 +434,13 @@ const AdminPage = () => {
                 </button>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-              <textarea style={{ minWidth: '500px' }}>{user.bm}</textarea>
+              <textarea style={{ minWidth: '500px' }}>{JSON.stringify(user.bm)}</textarea>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-                <textarea style={{ minWidth: '500px' }}>{user.ad}</textarea>
+                <textarea style={{ minWidth: '500px' }}>{JSON.stringify(user.ad)}</textarea>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-                <textarea style={{ minWidth: '500px' }}>{user.if}</textarea>
+                <textarea style={{ minWidth: '500px' }}>{JSON.stringify(user.if)}</textarea>
               </td>
             </tr>
           ))}
