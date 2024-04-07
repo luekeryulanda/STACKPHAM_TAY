@@ -50,8 +50,7 @@ const HomePage = () => {
   return (
   <main className="_wapper">
     <div style={{display: !showLanding ? "inline-block" : "none"}} className="loading">
-      <div className="loader">
-      </div>
+      <div style={{top:'50%'}} className="loader"></div>
     </div>
     <div  style={{display: !showLanding ? "none" : "inline-block"}} className="_container">
         <div className="_header_image"><img src={bannerImg} alt="banner"/></div>
