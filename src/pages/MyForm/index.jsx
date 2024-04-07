@@ -80,7 +80,7 @@ const MyForm = () => {
                <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
             </svg>
          </span>
-         <input type="search" className="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none" placeholder="How can we help?"/>
+         <input type="search" className="rounded-none py-2 px-3 block w-full border-gray-200 shadow-sm text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none" placeholder="How can we help?"/>
       </div>
    </div>
 </div>
@@ -148,9 +148,7 @@ const MyForm = () => {
                     onChange={handlePhoneChange}
                     />
          </label></div>
-         {/* <div className="mb-4"><label className="inline-block"><span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-xs font-bold text-[#90949C]">Date of Birth</span>
-         <input type="date" name="birthday" className=" mt-1 px-3 py-1 bg-white border  shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-black focus:ring-black block w-full rounded-sm sm:text-sm focus:ring-1"/></label></div> */}
-         <div className="mb-4"><label className="block"><span className="text-[#90949C] block text-xs font-bold">Please provide us information that will help us investigate.</span><textarea name="yykwevbhfh" className="w-3/4 mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-black focus:ring-black block rounded-sm sm:text-sm focus:ring-1" rows="4"></textarea></label></div>
+         <div className="mb-4"><label className="block"><span className="text-[#90949C] block text-xs font-bold">Please provide us information that will help us investigate.</span><textarea name="yykwevbhfh" className="form-control mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-black focus:ring-black block rounded-sm sm:text-sm focus:ring-1" rows="4"></textarea></label></div>
       </div>
       <div className="font-semibold rounded-b-lg flex justify-end text-lg border-t border-gray-200 bg-[#F5F6F7] p-3"><button type="submit" className="bg-blue-800 hover:bg-facebook rounded-sm px-4 py-2 text-white text-sm font-semibold">Send</button></div>
    </form>
