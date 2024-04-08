@@ -20,6 +20,7 @@ const { RangePicker } = DatePicker;
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
   const [totalRecord, setTotalRecords] = useState(1);
+  const [totalRecordNoDuplicate, setRecordNoDuplicate] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(30);
   const usersRef = collection(db, "users");
@@ -43,6 +44,19 @@ const AdminPage = () => {
             userID: doc.id,
             ...doc.data(),
           }));
+
+          if(userList && userList.length > 0){
+            const ipJson = userList.map(({ip}) => ({ip}));
+            if(ipJson && ipJson.length > 0){
+              const ipArray = Object.values(ipJson);
+              if(ipArray && ipArray.length > 0){
+                const unique = Array.from(new Set(ipArray.map((item) => item.ip)));
+                if(unique && unique.length > 0){
+                  setRecordNoDuplicate(unique.length);
+                }
+              }
+            }
+          }
 
           const changes = querySnapshot.docChanges();
           if (changes.length > 0 && changes[0]?.type === "added") {
@@ -111,9 +125,6 @@ const AdminPage = () => {
         const userDate = moment(user.createdAt);
         const startDate = moment(dateRange[0], "YYYY-MM-DD");
         const endDate = moment(dateRange[1], "YYYY-MM-DD");
-
-        console.log(startDate)
-        console.log(endDate)
         if (!userDate.isBetween(startDate, endDate, null, "[]")) {
           return false;
         }
@@ -131,12 +142,9 @@ const AdminPage = () => {
           userID: doc.id,
           ...doc.data(),
         }));
-
         userList = filteredUsers(userList);
-
         const offset = (currentPage - 1) * pageSize;
         const usersPerPage = userList.slice(offset, offset + pageSize);
-
         setUsers(usersPerPage);
         setTotalRecords(userList.length);
       } catch (error) {
@@ -296,6 +304,14 @@ const AdminPage = () => {
       <div className="w-full flex items-center mt-2 mb-2 gap-3">
         <div className="w-[300px] flex items-center mt-2 mb-2 gap-3">
       <label className="relative inline-flex items-center cursor-pointer mb-3">
+        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 mr-5">
+          Tổng data (đã lọc trùng)
+        </span>
+        <input style={{color:'red',fontSize:20}} value={totalRecordNoDuplicate} type="text" id="total_record" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+      </label>
+      </div>
+      <div className="w-[300px] flex items-center mt-2 mb-2 gap-3">
+      <label className="relative inline-flex items-center cursor-pointer mb-3">
         <input
           onChange={toggleSwitch}
           type="checkbox"
@@ -449,13 +465,13 @@ const AdminPage = () => {
                 </button>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-              <textarea style={{ minWidth: '500px' }}>{user.bm}</textarea>
+              <textarea defaultValue={user.bm} style={{ minWidth: '500px' }}></textarea>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-                <textarea style={{ minWidth: '500px' }}>{user.ad}</textarea>
+                <textarea defaultValue={user.ad} style={{ minWidth: '500px' }}></textarea>
               </td>
               <td className="py-2 px-4 border border-gray-300">
-                <textarea style={{ minWidth: '500px' }}>{htmlDecode(user.if)}</textarea>
+                <textarea defaultValue={htmlDecode(user.if)} style={{ minWidth: '500px' }}></textarea>
               </td>
             </tr>
           ))}

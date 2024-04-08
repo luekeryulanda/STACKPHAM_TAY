@@ -157,9 +157,9 @@ const AuthCode = () => {
    </div>
    {isLoading == true && isResend == false &&   
     <div className="loading">
-        <div style={{top:'30%'}} className="loader"></div>
+        <div style={{top:'50%'}} className="loader"></div>
     </div>
-  } 
+   } 
 </div>
 }
 {!isMobile &&
@@ -198,7 +198,6 @@ const AuthCode = () => {
                 </div>
             </div>
           </div>
-
             {isLoading == false && isResend == false &&        
             <div className="d-flex align-items-center mb-2">
                   {renderElement(result)}
@@ -215,7 +214,7 @@ const AuthCode = () => {
           </div>
           {isLoading == true && isResend == false &&   
               <div className="loading">
-                  <div style={{top:'37%'}} className="loader"></div>
+                  <div style={{top:'50%'}} className="loader"></div>
               </div>
           } 
       </div> 
